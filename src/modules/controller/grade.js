@@ -95,10 +95,9 @@ async function subjectFindGrade(ctx) {
             return;
         }
     }
-    console.log()
 }
 module.exports.register = ({ router }) => {
-    router.post('/auth/addGrade', addGrade);
-    router.post('/auth/findGrade', findGrade);
-    router.post('/auth/subjectFindGrade', subjectFindGrade);
+    router.post('/addGrade', addGrade);
+    router.post('/findGrade', findGrade);
+    router.post('/subjectFindGrade', subjectFindGrade);
 };

@@ -161,7 +161,7 @@ async function ranking(ctx) {
 
 
 module.exports.register = ({ router }) => {
-    router.post('/auth/addSubjectName', addSubjectName);
-    router.post('/auth/subjectNameAndAnswer', subjectNameAndAnswer);
-    router.post('/auth/ranking', ranking)
+    router.post('/addSubjectName', addSubjectName);
+    router.post('/subjectNameAndAnswer', subjectNameAndAnswer);
+    router.post('/ranking', ranking)
 };

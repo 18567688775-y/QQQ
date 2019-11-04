@@ -42,10 +42,10 @@ const decryToken = async (ctx, next) => {
      *    ...in that order.
      */
     var token = (body && body.token) || query.token || headers['access-token'];
-    if (!query.version || query.version !== 'v1') {
-      ctx.body = returnBody(1, 0, {}, '版本信息错误');
-      return;
-    }
+    // if (!query.version || query.version !== 'v1') {
+    //   ctx.body = returnBody(1, 0, {}, '版本信息错误');
+    //   return;
+    // }
     // 如果token存在
     if (token) {
       try {
