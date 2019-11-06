@@ -20,7 +20,6 @@ async function addGrade(ctx) {
 /**
  * 获取所有等级
  * @param {}} ctx 
- * @param {*} next 
  */
 async function findGrade(ctx) {
     const Grade = mongoose.model('grade');
@@ -31,6 +30,34 @@ async function findGrade(ctx) {
     }
     ctx.body = service[1].returnBody(0, 0, grade, '');
 }
+/**
+ * 获取当前用户等级
+ * @param {*} ctx 
+ */
+async function findUserGrade(ctx){
+    const {customer} = ctx.req;
+    const User = mongoose.model('user');
+    const user = await User.findOne({_id:mongoose.Types.ObjectId(customer._id)});
+    if(!user){
+        ctx.body = service[1].returnBody(1,0,{},'获取该用户等级失败');
+        return;
+    }
+    const Grade = mongoose.model('grade');
+    const gradeName = await Grade.find({});
+    if(!gradeName){
+        ctx.body = service[1].returnBody(1,0,{},'获取等级失败');
+        return;
+    }
+    const userGrade = await Grade.findOne({_id:mongoose.Types.ObjectId(customer.gradeId)});
+    if(!userGrade){
+        ctx.body = service[1].returnBody(1,0,{},'获取该用户等级失败');
+        return;
+    }
+    const allGrade = {gradeName,userGrade}
+    ctx.body = service[1].returnBody(0,0,allGrade,'获取成功');
+
+}
+
 
 /**
  * 通过用户名获取当前等级，查询当前等级的所有题目答案
@@ -100,4 +127,5 @@ module.exports.register = ({ router }) => {
     router.post('/addGrade', addGrade);
     router.post('/findGrade', findGrade);
     router.post('/subjectFindGrade', subjectFindGrade);
+    router.post('/findUserGrade',findUserGrade);
 };
